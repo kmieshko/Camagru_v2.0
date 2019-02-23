@@ -1,0 +1,12 @@
+<?php
+
+namespace app\models;
+
+use vendor\core\base\Model;
+
+class Main extends Model
+{
+
+    public $table = 'images';
+//     public $pk = 'login';
+}
