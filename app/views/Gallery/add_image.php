@@ -17,7 +17,7 @@
         <img src="/public/frames/4.png" class="draggable">
     </div>
 
-    <canvas id='canvas-upload' width="480" height="360" class="invisible"></canvas>
+    <canvas id='canvas-upload' width="640" height="480" class="invisible"></canvas>
     <div id="fitted-scale" class="invisible">
         <input id="scale" type="button" value="Scale Image">
         <input id="fitted" type="button" value="Fitted Image">
@@ -28,10 +28,10 @@
 
     <div id="select-camera" class="invisible">
         <div>
-            <video width="480" height="360" id="video" class="droppable"></video>
+            <video width="640" height="480" id="video" class="droppable"></video>
         </div>
         <div>
-            <canvas width="480" height="360" id="canvas-camera"></canvas>
+            <canvas width="640" height="480" id="canvas-camera"></canvas>
         </div>
         <div>
             <input id="snap" type="button" value="Snap Photo" disabled>

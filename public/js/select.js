@@ -2,8 +2,8 @@ var upload = document.getElementById("upload");
 var camera = document.getElementById("camera");
 var frames = document.getElementById('frames');
 var tmpBlock = document.getElementById('saved-frames');
-var width = 480;
-var height = 360;
+var width = 640;
+var height = 480;
 var res_img;
 var select = '';
 var zoom = 'fitted';
@@ -211,7 +211,7 @@ camera.onclick = function () {
 
                     var div_added = document.createElement('div');
                     div_added.className = "added_img";
-                    div_added.innerHTML = "Image succesfully added to the gallery";
+                    div_added.innerHTML = "Image succesfully added to the gallery <br />";
                     var result = document.createElement('img');
                     result.src = res_img.src;
                     div_added.appendChild(result);
