@@ -1,4 +1,10 @@
 <script src="/public/js/pagination.js"></script>
+<script src="/public/js/comments.js"></script>
+<link rel="stylesheet" type="text/css" href="/public/css/comments.css">
+
+<?php debug($_POST); ?>
+
+<?php use app\models\Main; ?>
 
 <div class="gallery">
 <?php if (!empty($images)): ?>
@@ -7,11 +13,23 @@
         <?php if (file_exists(ROOT . '/public/images/'. $image['image'])): ?>
             <div class="item">
                 <label class="invisible" for="title">User picture <?=$image['login']?></label>
-                    <a href="#modal">
+<!--                    <a href="#modal">-->
+                <a>
                         <img class="front" width="300" src="<?= '/public/images/'. $image['image']; ?>" alt="">
                         <span class="back">
-                            <img src="/public/icons/eye.png">
+<!--                            <img src="/public/icons/eye.png">-->
                         </span>
+                        <br />Number of likes :<br />
+
+                        <div id="addCommentContainer">
+                            <p>Add comment</p>
+                            <form id="addCommentForm" method="post" action="">
+                                <div>
+                                    <textarea name="body" id="body" cols="20" rows="4"></textarea>
+                                    <input type="submit" id="btnSubmit" value="Send" />
+                                </div>
+                            </form>
+                        </div>
                     </a>
             </div>
         <?php endif; ?>
