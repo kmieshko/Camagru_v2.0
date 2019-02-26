@@ -1,33 +1,26 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var working = false;
+var items = document.getElementsByClassName('item');
+for (var i = 0; i < items.length; i++) {
+    items.item(i)
+}
 
-    var addCommentForm = document.getElementById('addCommentForm');
-    addCommentForm.onsubmit = function (e) {
-        e.preventDefault();
-        if (working) return false;
-        working = true;
-        var send = document.getElementById('btnSubmit');
-        send.value = "...";
-        // document.querySelector('.error').remove();
+document.addEventListener('DOMContentLoaded', function() {
+    var btnSubmit = document.getElementById('btnSubmit');
+    btnSubmit.onclick = function (e) {
 
         var xhr = new XMLHttpRequest();
-        // var body = serialize(this);
-        var body = serialize(this) + '&img=' + document.querySelector('.front').src.match(/\/public\/images\/[a-zA-Z0-9]+\.png/)[0];
+        var body =  'body=' + document.getElementById('body').value + '&img=' + document.querySelector('.front').src.match(/\/public\/images\/[a-zA-Z0-9]+\.png/)[0];
         xhr.open('POST', '/main/comment-image', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.send(body);
         console.log(body);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                working = false;
-                send.value = "Send";
                 var comment = extractJSON(xhr.responseText);
-                console.log(comment);
-                document.body.innerHTML = document.body.innerHTML + comment.html;
-
-                // console.log(JSON.parse(this.responseText));
-
-                // document.body.insertBefore(asd, document.getElementById('addCommentContainer'));
+                var divComment = document.createElement('div');
+                divComment.className = 'comment';
+                divComment.innerHTML = comment.html;
+                document.getElementById('main').insertBefore(divComment, document.getElementById('addCommentContainer'));
+                document.getElementById('body').value = '';
             }
         }
     };
@@ -55,39 +48,6 @@ function extractJSON(str) {
         firstOpen = str.indexOf('{', firstOpen + 1);
     }
 }
-
-
-var serialize = function (form) {
-
-    // Setup our serialized data
-    var serialized = [];
-
-    // Loop through each field in the form
-    for (var i = 0; i < form.elements.length; i++) {
-
-        var field = form.elements[i];
-
-        // Don't serialize fields without a name, submits, buttons, file and reset inputs, and disabled fields
-        if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
-
-        // If a multi-select, get all selections
-        if (field.type === 'select-multiple') {
-            for (var n = 0; n < field.options.length; n++) {
-                if (!field.options[n].selected) continue;
-                serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[n].value));
-            }
-        }
-
-        // Convert field data to a query string
-        else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
-            serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
-        }
-    }
-
-    return serialized.join('&');
-
-};
-
 
 // $(document).ready(function(){
 //     /* Следующий код выполняется только после загрузки DOM */

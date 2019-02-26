@@ -46,7 +46,8 @@
 
 .container {
     width: 620px;
-    height: 705px;
+    /*height: 705px;*/
+    height: 100%;
     /*margin: 20px auto;*/
     background: #f0f0f0;
     padding: 10px 0px 0px 10px;
