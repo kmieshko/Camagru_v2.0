@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/public/css/gallery.css">
     <link rel="stylesheet" type="text/css" href="/public/css/pagination.css">
     <link rel="stylesheet" type="text/css" href="/public/css/modal.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 
@@ -25,8 +26,7 @@
     </div>
 <?php endif; ?>
 
-<?php //debug($_SESSION); ?>
-
+<?php debug($_SESSION); ?>
 <?=$content ?>
 <!--        --><?//= debug(vendor\core\Db::$countSql)?>
 <!--        --><?//= debug(vendor\core\Db::$queries)?>

@@ -15,7 +15,7 @@ class Db
         $db = require ROOT . "/config/config_db.php";
         $options = [
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC //вывод только ассоциативного масс. (вывод только ассоц. ключей)
+            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC // вывод только ассоц. ключей
         ];
         $this->pdo = new \PDO($db['dsn'], $db['user'], $db['pass'], $options);
     }
