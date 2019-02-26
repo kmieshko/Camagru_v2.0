@@ -7,7 +7,7 @@ use vendor\core\base\Model;
 class Gallery extends Model
 {
 
-    public function saveImageToDB($user, $image) {
+    public function saveImageToDb($user, $image) {
         $this->query("INSERT INTO `images` (`user_id`, `login`, `date`, `image`) VALUES ('{$user['user_id']}', '{$user['login']}', NOW(), '$image')");
     }
 
