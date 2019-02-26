@@ -23,7 +23,7 @@ class GalleryController extends AppController
                 $_SESSION['error'] = 'base64_decode failed';
             } else {
                 file_put_contents($path, $img);
-                $gObj->saveImageToDB($_SESSION['user'], $name);
+                $gObj->saveImageToDb($_SESSION['user'], $name);
                 $_SESSION['success'] = 'Your image successfully added to the gallery';
             }
         }
@@ -31,12 +31,6 @@ class GalleryController extends AppController
     }
 
     public function deleteImage()
-    {
-        debug(__METHOD__);
-
-    }
-
-    public function commentImage()
     {
         debug(__METHOD__);
 
