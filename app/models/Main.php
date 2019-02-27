@@ -14,26 +14,24 @@ class Main extends Model
         $this->query("INSERT INTO `comments` (`user_id`, `login`, `date`, `image`, `text`) VALUES ('{$user['user_id']}', '{$user['login']}', NOW(), '$img', '$text')");
     }
 
-    public function markUp($login, $text, $date)
-    {
-        return '
-                <div class="avatar">
-                </div>
-                <div class="name">' . $login . '</div>
-                <div class="date" title="Added at ' . $date . '">' . $date . '</div>
-                <p>' . $text . '</p>';
-    }
-
-    public function openModal($img)
+    public function getModal($img)
     {
         $login = $this->getLogin($img);
-        return '<div class="modal-container">
-                <header><h2>User picture '. $login. '</h2><header>
-                <section><img src="'. $img .'"></section>
-                <footer class="footer">
-                <a href="#" class="btn"><input type="button" value="Close"></a>
-                </footer>
-                </div>';
+        $comments = $this->getComments($img);
+        $res = '';
+        foreach ($comments as $comment) {
+            $res .= '<div class="comment">';
+            $res .=  $this->markUp($comment['login'], $comment['text'], $comment['date']);
+            $res .= '</div>';
+        }
+        $content = '<div class="modal-container">';
+        $content .= '<header><h2>User picture '. $login. '</h2></header>';
+        $content .= '<section><img src="'. $img .'"></section>';
+        $content .= '<div>' . $res . '</div>';
+        $content .= $this->addCommentBlock();
+        $content .= '<footer class="footer"><a href="#" class="btn"><input type="button" value="Close"></a></footer>';
+        $content .= '</div>';
+        return $content;
     }
 
     protected function getLogin($img)
@@ -44,8 +42,29 @@ class Main extends Model
 
     protected function getComments($img)
     {
-        $comments = $this->FindBySql("SELECT * FROM `comments` WHERE `image` = $img");
+        $comments = $this->FindBySql("SELECT * FROM `comments` WHERE `image` = '$img'");
         return $comments;
+    }
+
+    protected function addCommentBlock()
+    {
+        $result = '<div id="addCommentContainer">';
+        $result .= '<p>Add comment</p>';
+        $result .= '<div id="addCommentForm">';
+        $result .= '<div>';
+        $result .= '<textarea name="body" id="body" cols="20" rows="4"></textarea>';
+        $result .= '<input type="submit" id="btnSubmit" value="Send" />';
+        $result .= '</div>';
+        $result .= '</div>';
+        $result .= '</div>';
+        return $result;
+    }
+
+    public function markUp($login, $text, $date)
+    {
+        return '<div class="name">' . $login . '</div>
+                <div class="date" title="Added at ' . $date . '">' . $date . '</div>
+                <p>' . $text . '</p>';
     }
 }
 

@@ -1,5 +1,4 @@
 <script src="/public/js/pagination.js"></script>
-<!--<script src="/public/js/comments.js"></script>-->
 <link rel="stylesheet" type="text/css" href="/public/css/comments.css">
 
 
@@ -59,6 +58,7 @@
 </div>
 
 <script src="/public/js/test.js"></script>
+<!--<script src="/public/js/comments.js"></script>-->
 
 <div class="modal" id="modal">
     <?php if (isset($_POST['img'])) : ?>

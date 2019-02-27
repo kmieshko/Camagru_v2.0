@@ -12,7 +12,7 @@ class MainController extends AppController
         $model = new Main;
         $model->query("CREATE TABLE IF NOT EXISTS users (`user_id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, `login` VARCHAR(" . MAX_LENGTH . ") NOT NULL, `password` VARCHAR(255) NOT NULL, `email` VARCHAR(100) NOT NULL, `notifications` ENUM('yes', 'no'))");
         $model->query("CREATE TABLE IF NOT EXISTS images (`user_id` INT(11) NOT NULL, `login` VARCHAR(" . MAX_LENGTH . ") NOT NULL, `date` TIMESTAMP PRIMARY KEY,  `image` VARCHAR(255) NOT NULL)");
-        $model->query("CREATE TABLE IF NOT EXISTS comments (`user_id` INT(11) NOT NULL, `login` VARCHAR(" . MAX_LENGTH . ") NOT NULL, `date` TIMESTAMP,  `image` VARCHAR(255) NOT NULL PRIMARY KEY, `text` VARCHAR(1000) NOT NULL)");
+        $model->query("CREATE TABLE IF NOT EXISTS comments (`comment_id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, `user_id` INT(11) NOT NULL, `login` VARCHAR(" . MAX_LENGTH . ") NOT NULL, `date` TIMESTAMP,  `image` VARCHAR(255) NOT NULL, `text` VARCHAR(1000) NOT NULL)");
 
         $total = $model->FindBySql("SELECT COUNT(*) FROM images");
         $total = $total[0]['COUNT(*)'];
@@ -25,6 +25,16 @@ class MainController extends AppController
         $this->set(compact('title', 'images', 'total', 'perpage', 'pagination'));
     }
 
+    public function modalAction()
+    {
+        if (isset($_POST['img'])) {
+            $mObj = new Main();
+            $content = $mObj->getModal($_POST['img']);
+            echo json_encode(array('html' => $content));
+        }
+        $this->view = 'index';
+    }
+
     public function commentImageAction()
     {
         if (isset($_POST['body'])) {
@@ -33,6 +43,7 @@ class MainController extends AppController
             $comment->saveCommentToDb($text, $_SESSION['user'], $_POST['img']);
             $date = date('r', time());
             $content = $comment->markUp($_SESSION['user']['login'], $text, strtotime($date));
+//            echo json_encode(array('login' => $content['login'], 'image' => $content['image']));
             echo json_encode(array('html' => $content));
         }
         $this->view = 'index';
