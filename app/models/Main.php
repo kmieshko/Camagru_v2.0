@@ -28,8 +28,10 @@ class Main extends Model
         $content = '<div class="modal-container">';
         $content .= '<header><h2>User picture '. $login. '</h2></header>';
         $content .= '<section><img src="'. $img .'"></section>';
-        $content .= $like;
-        $content .= '<div class="post-comment" id="comment"></div>';
+        if ($_SESSION['user']) {
+            $content .= $like;
+            $content .= '<div class="post-comment" id="comment"></div>';
+        }
         $content .= '<div id="container-comment">' . $res . '</div>';
         $content .= $this->addCommentBlock();
         $content .= '<footer class="footer"><a href="#" class="btn"><input type="button" value="Close"></a></footer>';
