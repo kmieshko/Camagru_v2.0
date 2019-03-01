@@ -19,6 +19,7 @@ class Main extends Model
         $login = $this->getLogin($img);
         $comments = $this->getComments($img);
         $res = '';
+        $like = $this->getLike($img, $_SESSION['user']['login']);
         foreach ($comments as $comment) {
             $res .= '<div class="comment">';
             $res .=  $this->markUp($comment['login'], $comment['text'], $comment['date']);
@@ -27,6 +28,8 @@ class Main extends Model
         $content = '<div class="modal-container">';
         $content .= '<header><h2>User picture '. $login. '</h2></header>';
         $content .= '<section><img src="'. $img .'"></section>';
+        $content .= $like;
+        $content .= '<div class="post-comment" id="comment"></div>';
         $content .= '<div id="container-comment">' . $res . '</div>';
         $content .= $this->addCommentBlock();
         $content .= '<footer class="footer"><a href="#" class="btn"><input type="button" value="Close"></a></footer>';
@@ -48,7 +51,7 @@ class Main extends Model
 
     protected function addCommentBlock()
     {
-        $result = '<div id="addCommentContainer">';
+        $result = '<div class="invisible" id="addCommentContainer">';
         $result .= '<p>Add comment</p>';
         $result .= '<div id="addCommentForm">';
         $result .= '<div>';
@@ -66,13 +69,25 @@ class Main extends Model
                 <div class="date">' . $date . '</div>
                 <p>' . $text . '</p>';
     }
+
+    protected function getLike($img, $login)
+    {
+        $res = $this->FindBySql("SELECT * FROM `likes` WHERE `image` = '$img' AND `login` = '$login' LIMIT 1");
+        if ($res == TRUE) {
+            $like = '<div class="post-like liked" id="like"></div>';
+        } else {
+            $like = '<div class="post-like unliked" id="like"></div>';
+        }
+        return $like;
+    }
+
+    public function likeImage($img, $login)
+    {
+        $this->query("INSERT INTO `likes` (`login`, `image`) VALUES ('$login', '$img')");
+    }
+
+    public function unlikeImage($img, $login)
+    {
+        $this->FindBySql("DELETE FROM likes WHERE `image` = '$img' AND `login` = '$login'");
+    }
 }
-
-//<div class="comment">
-//</div>';
-
-
-//<div class="date" title="Added at ' . date('H:i \o\n d M Y', $date) . '">' . date('d M Y', $date) . '</div>
-
-
-//5c73d832ef895.png

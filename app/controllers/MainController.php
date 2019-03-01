@@ -13,6 +13,7 @@ class MainController extends AppController
         $model->query("CREATE TABLE IF NOT EXISTS users (`user_id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, `login` VARCHAR(" . MAX_LENGTH . ") NOT NULL, `password` VARCHAR(255) NOT NULL, `email` VARCHAR(100) NOT NULL, `notifications` ENUM('yes', 'no'))");
         $model->query("CREATE TABLE IF NOT EXISTS images (`user_id` INT(11) NOT NULL, `login` VARCHAR(" . MAX_LENGTH . ") NOT NULL, `date` TIMESTAMP PRIMARY KEY,  `image` VARCHAR(255) NOT NULL)");
         $model->query("CREATE TABLE IF NOT EXISTS comments (`comment_id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, `user_id` INT(11) NOT NULL, `login` VARCHAR(" . MAX_LENGTH . ") NOT NULL, `date` TIMESTAMP,  `image` VARCHAR(255) NOT NULL, `text` VARCHAR(1000) NOT NULL)");
+        $model->query("CREATE TABLE IF NOT EXISTS likes (`like_id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, `login` VARCHAR(" . MAX_LENGTH . ") NOT NULL, `image` VARCHAR(255) NOT NULL)");
 
         $total = $model->FindBySql("SELECT COUNT(*) FROM images");
         $total = $total[0]['COUNT(*)'];
@@ -47,6 +48,18 @@ class MainController extends AppController
             echo json_encode(array('html' => $content));
         }
         $this->view = 'index';
+    }
+
+    public function likeImageAction()
+    {
+        if (isset($_POST['img']) && isset($_POST['like'])) {
+            $mObj = new Main();
+            if ($_POST['like'] == 0) {
+                $mObj->unlikeImage($_POST['img'], $_SESSION['user']['login']);
+            } elseif ($_POST['like'] == 1) {
+                $mObj->likeImage($_POST['img'], $_SESSION['user']['login']);
+            }
+        }
     }
 }
 

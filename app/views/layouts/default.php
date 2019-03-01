@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/public/css/gallery.css">
     <link rel="stylesheet" type="text/css" href="/public/css/pagination.css">
     <link rel="stylesheet" type="text/css" href="/public/css/modal.css">
+    <script src="/public/js/functions.js"></script>
 </head>
 <body>
 

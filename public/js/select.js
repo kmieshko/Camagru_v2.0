@@ -245,9 +245,3 @@ camera.onclick = function () {
         }
     };
 };
-
-function convertCanvasToImage(canvas) {
-    var new_image = new Image();
-    new_image.src = canvas.toDataURL("image/png");
-    return new_image;
-}

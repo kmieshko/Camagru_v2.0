@@ -1,5 +1,5 @@
 <?php if (isset($_SESSION['user'])) { ?>
-
+<center>
     <div id="select">
         <input type="button" id="camera" value="Camera">
         <input type="button" id="upload" value="Upload Image">
@@ -49,7 +49,5 @@
 
     <script src="/public/js/select.js"></script>
     <script src="/public/js/dragndrop.js"></script>
-    <script src="/public/js/scaleImage.js"></script>
-
-
+</center>
 <?php } else $_SESSION['error'] = 'Adding pictures are allowed only for registered users.';?>
