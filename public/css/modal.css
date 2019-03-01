@@ -1,10 +1,11 @@
+.modal {
+    left: 50%;
+}
 .modal-container {
     background: #fff;
-    left: 50%;
-    margin: -250px 0 0 -40%;
     position: absolute;
-    top: -50%;
-    width: 510px;
+    top: -1000%;
+    width: 670px;
     border-radius: 5px;
     box-shadow: 0 3px 7px rgba(0, 0, 0, .25);
     -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, .25);
@@ -19,7 +20,7 @@
     top: 0;
     left: 0;
     height: 100%;
-    width: 100%
+    width: 100%;
 }
 
 .modal:target:before {
@@ -27,7 +28,8 @@
 }
 
 .modal:target .modal-container {
-    top: 50%;
+    top: 15%;
+    left: 30%
 }
 
 .modal header, .modal footer {
@@ -52,4 +54,31 @@
 
 .modal .btn {
     float: right;
+}
+
+.post-like {
+    width: 32px;
+    height: 32px;
+    background-size: 32px 32px;
+    cursor: pointer;
+    margin-left: 15px;
+    display:inline-block
+}
+
+.post-comment {
+    width: 32px;
+    height: 32px;
+    background-size: 32px 32px;
+    cursor: pointer;
+    margin-left: 15px;
+    background-image: url(/public/icons/comment.png);
+    display:inline-block
+}
+
+.unliked {
+    background-image: url(/public/icons/post-unliked.png);
+}
+
+.liked {
+    background-image: url(/public/icons/post-liked.png);
 }
