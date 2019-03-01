@@ -18,7 +18,7 @@ class MainController extends AppController
         $total = $model->FindBySql("SELECT COUNT(*) FROM images");
         $total = $total[0]['COUNT(*)'];
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $perpage = 2;
+        $perpage = 9;
         $pagination = new Pagination($page, $perpage, $total);
         $start = $pagination->getStart();
         $images = $model->FindBySql("SELECT * FROM `images` ORDER BY `date` DESC LIMIT $start, $perpage");
