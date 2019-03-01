@@ -27,7 +27,7 @@ class Main extends Model
         $content = '<div class="modal-container">';
         $content .= '<header><h2>User picture '. $login. '</h2></header>';
         $content .= '<section><img src="'. $img .'"></section>';
-        $content .= '<div>' . $res . '</div>';
+        $content .= '<div id="container-comment">' . $res . '</div>';
         $content .= $this->addCommentBlock();
         $content .= '<footer class="footer"><a href="#" class="btn"><input type="button" value="Close"></a></footer>';
         $content .= '</div>';
@@ -63,7 +63,7 @@ class Main extends Model
     public function markUp($login, $text, $date)
     {
         return '<div class="name">' . $login . '</div>
-                <div class="date" title="Added at ' . $date . '">' . $date . '</div>
+                <div class="date">' . $date . '</div>
                 <p>' . $text . '</p>';
     }
 }

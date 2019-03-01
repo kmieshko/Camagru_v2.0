@@ -41,9 +41,9 @@ class MainController extends AppController
             $text = $_POST['body'];
             $comment = new Main();
             $comment->saveCommentToDb($text, $_SESSION['user'], $_POST['img']);
-            $date = date('r', time());
-            $content = $comment->markUp($_SESSION['user']['login'], $text, strtotime($date));
-//            echo json_encode(array('login' => $content['login'], 'image' => $content['image']));
+            date_default_timezone_set('Europe/Kiev');
+            $date = date('Y-m-d H:i:s', time());
+            $content = $comment->markUp($_SESSION['user']['login'], $text, $date);
             echo json_encode(array('html' => $content));
         }
         $this->view = 'index';

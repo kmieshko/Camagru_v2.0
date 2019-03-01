@@ -1,24 +1,72 @@
-var container = document.querySelector('.container');
-var children = container.getElementsByTagName('div');
+var items = document.querySelectorAll("[id^='modal-']");
 var src;
-var title;
-var modal = document.getElementById('modal');
+for (var i = 0; i < items.length; i++) {
+    items.item(i).onclick = function () {
+        var img = this.getElementsByTagName('img').item(0);
+        src = img.src.match(/\/public\/images\/[a-zA-Z0-9]+\.png/)[0];
 
-for (var i = 0; i < children.length; i++) {
-    var child = children.item(i);
-    child.onclick = function(e) {
-        for (var j = 0; j < e.path.length; j++) {
-            var item = e.path[j];
-            if (item.className === 'item') {
-                title = item.getElementsByTagName('label').item(0).innerHTML;
-                src = item.getElementsByTagName('a').item(0).getElementsByTagName('img').item(0).src;
-                src = src.match(/\/public\/images\/[a-zA-Z0-9]+\.png/)[0];
-                modal.querySelector('img').src = src;
-                modal.getElementsByTagName('header').item(0).getElementsByTagName('label').item(0).innerText = title;
-                document.body.appendChild(modal);
+        console.log(src);
+
+        var xhr = new XMLHttpRequest();
+        var body = 'img=' + src;
+        xhr.open('POST', '/main/modal', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(body);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var modal = extractJSON(xhr.responseText);
+                var divModal = document.getElementById('modal');
+                divModal.innerHTML = modal.html;
+
+                var btnSubmit = document.getElementById('btnSubmit');
+                btnSubmit.onclick = function () {
+                    addComment();
+                };
             }
-        }
+        };
     };
 }
 
-document.location.hash = '#';
+function addComment() {
+
+    var xhr = new XMLHttpRequest();
+    var body =  'body=' + document.getElementById('body').value + '&img=' + src;
+    xhr.open('POST', '/main/comment-image', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send(body);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var comment = extractJSON(xhr.responseText);
+            var divComment = document.createElement('div');
+            divComment.className = 'comment';
+            divComment.innerHTML = comment.html;
+            document.getElementById('container-comment').appendChild(divComment);
+            document.getElementById('body').value = '';
+        }
+    }
+}
+
+function extractJSON(str) {
+    var firstOpen, firstClose, candidate;
+    firstOpen = str.indexOf('{', firstOpen + 1);
+    while(firstOpen != -1) {
+        firstClose = str.lastIndexOf('}');
+        if(firstClose <= firstOpen) {
+            return null;
+        }
+        while(firstClose > firstOpen) {
+            candidate = str.substring(firstOpen, firstClose + 1);
+            try {
+                var res = JSON.parse(candidate);
+                return res;
+            }
+            catch(e) {
+            }
+            firstClose = str.substr(0, firstClose).lastIndexOf('}');
+        }
+        firstOpen = str.indexOf('{', firstOpen + 1);
+    }
+}
+
+document.location.hash = '';
