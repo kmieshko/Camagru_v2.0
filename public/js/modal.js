@@ -15,9 +15,9 @@ for (var i = 0; i < items.length; i++) {
                 var modal = extractJSON(xhr.responseText);
                 var divModal = document.getElementById('modal');
                 divModal.innerHTML = modal.html;
-
                 include("/public/js/like.js");
-
+                include("/public/js/delete-comment.js");
+                include("/public/js/delete-image.js");
                 var btnSubmit = document.getElementById('btnSubmit');
                 btnSubmit.onclick = function () {
                     addComment();
@@ -44,6 +44,21 @@ function addComment() {
                 divComment.innerHTML = comment.html;
                 document.getElementById('container-comment').appendChild(divComment);
                 document.getElementById('body').value = '';
+                divComment.querySelector('.delete-comment').addEventListener('click', function () {
+                    var date = this.parentElement.parentElement.querySelector('.date').innerText;
+                    var text = this.parentElement.innerText;
+                    var comment = this.parentElement.parentElement;
+                    var xhr = new XMLHttpRequest();
+                    var body = 'date=' + date;
+                    xhr.open('POST', '/main/delete-comment', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.send(body);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            comment.remove();
+                        }
+                    };
+                });
             }
         }
     }

@@ -94,7 +94,6 @@ upload.onclick = function () {
                             if (!divFittedScale.getAttribute('class')) divFittedScale.setAttribute('class', 'invisible');
                             inputSaveUpl.setAttribute('class', 'invisible');
                             selectUpload.setAttribute('class', 'invisible');
-                            document.getElementById("select").removeAttribute('class');
                             frames.setAttribute('class', 'invisible');
                             inputClear.setAttribute('class', 'invisible');
                             inputSaveUpl.disabled = true;
@@ -106,6 +105,38 @@ upload.onclick = function () {
                             newInput.name = "fileToUpload";
                             newInput.id = "fileToUpload";
                             selectUpload.appendChild(newInput);
+
+                            var div_added = document.createElement('div');
+                            div_added.className = "added_img";
+                            div_added.innerHTML = "Image succesfully added to the gallery <br />";
+                            var result = document.createElement('img');
+                            result.src = res_img.src;
+                            div_added.appendChild(result);
+                            document.body.insertBefore(div_added, document.getElementsByTagName('center').item(0));
+
+                            var choose = document.createElement('div');
+                            choose.id = 'choose';
+                            var inputAddNewImage = document.createElement('input');
+                            var inputGoToGallery = document.createElement('input');
+                            choose.appendChild(inputAddNewImage);
+                            choose.appendChild(inputGoToGallery);
+                            inputAddNewImage.type = "button";
+                            inputAddNewImage.value = "Add New Image";
+                            inputGoToGallery.type = "button";
+                            inputGoToGallery.value = "Go To Gallery";
+                            document.body.insertBefore(choose, document.getElementsByTagName('center').item(0));
+
+                            inputGoToGallery.onclick = function() {
+                                choose.remove();
+                                div_added.remove();
+                                location.replace('/main/index');
+                            };
+
+                            inputAddNewImage.onclick = function () {
+                                choose.remove();
+                                div_added.remove();
+                                document.getElementById("select").removeAttribute('class');
+                            };
                         }
                     };
                 };
@@ -215,7 +246,7 @@ camera.onclick = function () {
                     var result = document.createElement('img');
                     result.src = res_img.src;
                     div_added.appendChild(result);
-                    document.body.insertBefore(document.body.appendChild(div_added), document.getElementById('select'));
+                    document.body.insertBefore(div_added, document.getElementsByTagName('center').item(0));
 
                     var choose = document.createElement('div');
                     choose.id = 'choose';
@@ -227,7 +258,7 @@ camera.onclick = function () {
                     inputAddNewImage.value = "Add New Image";
                     inputGoToGallery.type = "button";
                     inputGoToGallery.value = "Go To Gallery";
-                    document.body.insertBefore(document.body.appendChild(choose), document.getElementById("select"));
+                    document.body.insertBefore(choose, document.getElementsByTagName('center').item(0));
 
                     inputGoToGallery.onclick = function() {
                         choose.remove();
