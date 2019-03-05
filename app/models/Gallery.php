@@ -50,4 +50,11 @@ class Gallery extends Model
         $result = base64_decode($result);
         return $result;
     }
+
+    public function deleteImage($img)
+    {
+        $this->query("DELETE FROM `images` WHERE `image` = '" . str_replace('/public/images/', '', $img) . "'");
+        $this->query("DELETE FROM `comments` WHERE `image` = '$img'");
+        $this->query("DELETE FROM `likes` WHERE `image` = '$img'");
+    }
 }
