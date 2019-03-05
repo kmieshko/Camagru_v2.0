@@ -152,7 +152,7 @@ class Main extends Model
             $mailContent .= '<br/>You commented on your own photo';
         }
         $mailContent .= '<br/>To show this comment, visit the following link: <a href="' . $resetPassLink . '">' . $resetPassLink . '</a>';
-        $mailContent .= '<br/><br/>Regards,';
+        $mailContent .= '<br/><br/>Regards, ';
         $mailContent .= '<br/>Camagru';
         mail($to, $subject, $mailContent, $header);
     }
