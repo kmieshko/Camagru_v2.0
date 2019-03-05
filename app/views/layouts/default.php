@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <title>DEFAULT | <?=$title ?></title>
+    <title><?=$title ?></title>
     <link rel="stylesheet" type="text/css" href="/public/css/main.css">
     <link rel="stylesheet" type="text/css" href="/public/css/gallery.css">
     <link rel="stylesheet" type="text/css" href="/public/css/pagination.css">
@@ -26,7 +26,7 @@
     </div>
 <?php endif; ?>
 
-<?php debug($_SESSION); ?>
+<?php //debug($_SESSION); ?>
 <?=$content ?>
 <!--        --><?//= debug(vendor\core\Db::$countSql)?>
 <!--        --><?//= debug(vendor\core\Db::$queries)?>
