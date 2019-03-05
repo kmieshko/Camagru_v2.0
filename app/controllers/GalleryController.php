@@ -8,6 +8,8 @@ class GalleryController extends AppController
 {
     public function indexAction()
     {
+        $title = 'Add Image';
+        $this->set(compact('title'));
         $this->view = 'add_image';
     }
 
@@ -28,5 +30,15 @@ class GalleryController extends AppController
             }
         }
         $this->view = 'add_image';
+    }
+
+    public function deleteImageAction()
+    {
+        if (isset($_POST["img"])) {
+            $gObj = new Gallery();
+            $gObj->deleteImage($_POST["img"]);
+        } else {
+            redirect('main/index');
+        }
     }
 }
