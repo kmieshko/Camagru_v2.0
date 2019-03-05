@@ -1,6 +1,3 @@
-.modal {
-    left: 50%;
-}
 .modal-container {
     background: #fff;
     position: absolute;
@@ -28,8 +25,10 @@
 }
 
 .modal:target .modal-container {
-    top: 15%;
-    left: 30%
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
 }
 
 .modal header, .modal footer {
