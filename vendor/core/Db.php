@@ -18,7 +18,6 @@ class Db
             \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC // вывод только ассоц. ключей
         ];
         $this->pdo = new \PDO($db['dsn'], $db['user'], $db['pass'], $options);
-        $this->pdo->exec("CREATE DATABASE `camagru`");
     }
 
     public static function instance()
