@@ -139,6 +139,34 @@ class User extends Model
         $this->query("INSERT INTO $table ($fields) VALUES ($values)");
     }
 
+    public function activateAccount($login, $to, $token)
+    {
+        $encoding = "utf-8";
+        $subject_preferences = array(
+            "input-charset" => $encoding,
+            "output-charset" => $encoding,
+            "line-length" => 76,
+            "line-break-chars" => "\r\n"
+        );
+        $from_name = 'Camagru';
+        $from_mail = 'camagru@example.com';
+        $header = "Content-type: text/html; charset=" . $encoding . " \r\n";
+        $header .= "From: " . $from_name . " <" . $from_mail . "> \r\n";
+        $header .= "MIME-Version: 1.0 \r\n";
+        $header .= "Content-Transfer-Encoding: 8bit \r\n";
+        $header .= "Date: " . date("r (T)") . " \r\n";
+        $header .= iconv_mime_encode("Subject", $from_name . ' <' . $from_mail . '> ', $subject_preferences);
+        $resetPassLink = 'http://127.0.0.1:8100/user/activate-account/?token=' . $token;
+        $subject = "Thank you for registering Camagru";
+        $mailContent = 'Dear ' . $login . ',';
+        $mailContent .= '<br/>Thank you for registering with Camagru! Your account has been successfully created. Welcome to the Camagru family!';
+        $mailContent .= '<br/>To ensure security, activate your account now. Please click the following link to activate your account: <a href="' . $resetPassLink . '">' . $resetPassLink . '</a>';
+        $mailContent .= '<br/> If the link doesn\'t work, copy it into the address bar of your browser.';
+        $mailContent .= '<br/><br/>Regards,';
+        $mailContent .= '<br/>Camagru';
+        mail($to, $subject, $mailContent, $header);
+    }
+
     public function login()
     {
         $login = !empty(trim($_POST['login'])) ? trim($_POST['login']) : NULL;
@@ -224,5 +252,23 @@ class User extends Model
     public function updateEmail($email, $user_id)
     {
         $this->query("UPDATE `users` SET `email` = '$email' WHERE `user_id` = '$user_id'");
+    }
+
+    public function updateActivate($user_id)
+    {
+        $this->query("UPDATE `users` SET `activate` = '1' WHERE `user_id` = '$user_id'");
+    }
+
+    public function checkActivate($user_id)
+    {
+        $activate = $this->findBySql("SELECT `activate` FROM `users` WHERE `user_id` = '$user_id'");
+        if ($activate[0]['activate'] == 1) return true;
+        return false;
+    }
+
+    public function getToken($user_id)
+    {
+        $token = $this->findBySql("SELECT `token` FROM `users` WHERE `user_id` = '$user_id' LIMIT 1");
+        return $token[0]['token'];
     }
 }

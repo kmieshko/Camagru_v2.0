@@ -1,4 +1,7 @@
 <center>
+    <?php if (isset($_SESSION['user']) && $_SESSION['user']['activate'] === '0') : ?>
+        <a href="/user/resend-activation-link">Activate your account</a>
+    <?php endif; ?>
     <form method="post" action="/user/profile">
         <div>
             Login: <label id="label-login"><?=$login ?></label>

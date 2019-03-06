@@ -29,7 +29,7 @@ class Main extends Model
         $content = '<div class="modal-container">';
         $content .= '<header><h2>User picture '. $login. '</h2></header>';
         $content .= '<section><img src="'. $img .'"></section>';
-        if ($_SESSION['user']) {
+        if (isset($_SESSION['user']) && $_SESSION['user']['activate'] === '1') {
             $content .= $like;
             $content .= '<div class="post-comment" id="comment"></div>';
             if ($_SESSION['user']['login'] === $login) {

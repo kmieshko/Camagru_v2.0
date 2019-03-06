@@ -12,12 +12,13 @@ class Db
 
     protected function __construct()
     {
-        $db = require ROOT . "/config/config_db.php";
+        $db = require ROOT . "/config/database.php";
         $options = [
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
             \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC // вывод только ассоц. ключей
         ];
         $this->pdo = new \PDO($db['dsn'], $db['user'], $db['pass'], $options);
+        $this->pdo->exec("CREATE DATABASE `camagru`");
     }
 
     public static function instance()

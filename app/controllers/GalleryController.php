@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\models\Gallery;
 
-class GalleryController extends AppController
+class GalleryController extends \vendor\core\base\Controller
 {
     public function indexAction()
     {

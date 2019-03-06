@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\models\User;
 
-class UserController extends AppController
+class UserController extends \vendor\core\base\Controller
 {
 
     public function signupAction()
@@ -20,11 +20,47 @@ class UserController extends AppController
             }
             $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
             $user->attributes['token'] = md5(rand(999, 99999));
+            $user->attributes['activate'] = 0;
             $user->save('users');
-            $_SESSION['success'] = 'You have successfully registered';
-            redirect('/user/login');
+            $user->activateAccount($data['login'], $data['email'], $user->attributes['token']);
+            $_SESSION['success'] = 'Check your inbox for an account activate email';
         }
         $title = 'Signup';
+        $this->set(compact('title'));
+    }
+
+    public function activateAccountAction()
+    {
+        if (isset($_GET['token'])) {
+            $model = new User();
+            $user = $model->findBySql("SELECT * FROM `users` WHERE `token` = ? LIMIT 1", [$_GET['token']]);
+            if (!empty($user)) {
+                $model->updateActivate($user[0]['user_id']);
+                $model->updateToken($user[0]['user_id']);
+                $token = $model->getToken($user[0]['user_id']);
+                $_SESSION['user']['token'] = $token[0]['token'];
+            } else {
+                $_SESSION['error'] = 'Some problem occurred, please try again';
+                redirect('/user/signup');
+            }
+        }
+        $title = 'Activate Account';
+        $this->set(compact('title'));
+    }
+
+    public function resendActivationLinkAction()
+    {
+        if (isset($_SESSION['user'])) {
+            $model = new User();
+            $token = $model->getToken($_SESSION['user']['user_id']);
+            $_SESSION['user']['token'] = $token[0]['token'];
+            $model->activateAccount($_SESSION['user']['login'], $_SESSION['user']['email'], $_SESSION['user']['token']);
+            $_SESSION['success'] = 'Check your inbox for an account activate email';
+            redirect('/user/activate-account');
+        } else {
+            redirect('/user/signup');
+        }
+        $title = 'Activate Account';
         $this->set(compact('title'));
     }
 
@@ -32,13 +68,23 @@ class UserController extends AppController
     {
         if (!empty($_POST)) {
             $user = new User();
-            $user->login();
-            if ($user->login()) {
-                $_SESSION['success'] = 'You have successfully logged in';
-                redirect('/');
-            } else {
-                $_SESSION['error'] = 'Wrong login or password';
-                redirect('/user/login');
+            if (isset($_POST['g-recaptcha-response'])) {
+                $url_to_google_api = "https://www.google.com/recaptcha/api/siteverify";
+                $secret_key = '6LfK5pUUAAAAAJPp9wxs4e6WsBV00eEyNGoP_TAY';
+                $query = $url_to_google_api . '?secret=' . $secret_key . '&response='
+                    . $_POST['g-recaptcha-response'] . '&remoteip=' . $_SERVER['REMOTE_ADDR'];
+                $data = json_decode(file_get_contents($query));
+                if ($data->success) {
+                    if ($user->login()) {
+                        $_SESSION['success'] = 'You have successfully logged in';
+                        redirect('/');
+                    } else {
+                        $_SESSION['error'] = 'Wrong login or password';
+                        redirect('/user/login');
+                    }
+                } else {
+                    $_SESSION['error'] = 'Valid Captcha, please';
+                }
             }
         }
         $title = 'Login';
@@ -61,7 +107,7 @@ class UserController extends AppController
             $res = $user->findEmail($email);
             if ($res === true) {
                 $user->resetPassword($email);
-                $_SESSION['success'] = 'Check your inbox for a password reset email';
+                $_SESSION['success'] = 'Check your inbox for reset password email';
             } else {
                 $_SESSION['error'] = 'Given email is not associated with any account';
                 redirect();
@@ -83,12 +129,15 @@ class UserController extends AppController
             $_SESSION['error'] = 'Some problem occurred, please try again';
             redirect('/user/reset-password');
         }
+        $title = 'New Password';
+        $this->set(compact('title'));
     }
 
     public function updatePasswordAction()
     {
         if (!empty($_SESSION['reset_user'])) {
             $data = array_merge($_POST, $_SESSION['reset_user']);
+            debug($data);
             unset($_SESSION['reset_user']);
             $user = new User();
             if (!$user->validate($_POST)) {

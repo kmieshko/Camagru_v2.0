@@ -26,7 +26,7 @@
     </div>
 <?php endif; ?>
 
-<?php //debug($_SESSION); ?>
+<?php debug($_SESSION); ?>
 <?=$content ?>
 <!--        --><?//= debug(vendor\core\Db::$countSql)?>
 <!--        --><?//= debug(vendor\core\Db::$queries)?>

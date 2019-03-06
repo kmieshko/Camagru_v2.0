@@ -2,7 +2,7 @@
     <form method="post" action="/user/update-password">
         <div>
             <label for="new_password">New Password</label>
-            <input type="text" name="new_password" id="new_password" placeholder="New Password">
+            <input type="text" name="new-password" id="new_password" placeholder="New Password">
         </div>
         <div>
             <label for="repeat">Repeat New Password</label>

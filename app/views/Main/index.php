@@ -1,6 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/public/css/comments.css">
-<?php use app\models\Main; ?>
-<?php $model = new Main(); ?>
+<?php if (isset($_SESSION['user']) && $_SESSION['user']['activate'] === '0') $_SESSION['error'] = 'For comment and like images, you need to activate your account'; ?>
 <center>
     <div class="gallery">
         <?php if (!empty($images)): ?>
