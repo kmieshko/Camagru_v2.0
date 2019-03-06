@@ -37,6 +37,7 @@ class GalleryController extends \vendor\core\base\Controller
         if (isset($_POST["img"])) {
             $gObj = new Gallery();
             $gObj->deleteImage($_POST["img"]);
+            unlink(ROOT . $_POST['img']);
         } else {
             redirect('main/index');
         }

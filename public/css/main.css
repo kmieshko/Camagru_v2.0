@@ -1,27 +1,40 @@
 body {
     background: #ccc;
 }
+
 ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 li {
     display: inline;
 }
+
 .draggable {
     cursor: pointer;
     width: 50px;
     height: 50px;
 }
+
 .not-draggable {
     opacity: 0.5;
     width: 50px;
     height: 50px;
 }
+
 .droppable {
     border: cornflowerblue 5px solid;
 }
+
 .invisible {
     display: none;
+}
+
+.g-recaptcha {
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    transform-origin: center center;
+    -webkit-transform-origin: center center;
 }

@@ -2,6 +2,8 @@
 ini_set("display_errors", "1");
 error_reporting(E_ALL);
 
+require_once '../index.php';
+
 use vendor\core\Router;
 
 $query = rtrim($_SERVER['QUERY_STRING'], '/');
@@ -25,7 +27,6 @@ spl_autoload_register(function ($class) {
     }
 });
 
-// defaults routs
 Router::add('^$', ['controller' => 'Main', 'action' => 'index']);
 Router::add('^(?P<controller>[a-z-]+)\/?(?P<action>[a-z-]+)?$');
 

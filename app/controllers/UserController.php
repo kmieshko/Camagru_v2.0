@@ -17,13 +17,14 @@ class UserController extends \vendor\core\base\Controller
                 $user->getErrors();
                 $_SESSION['form_data'] = $data;
                 redirect();
+            } else {
+                $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
+                $user->attributes['token'] = md5(rand(999, 99999));
+                $user->attributes['activate'] = 0;
+                $user->save('users');
+                $user->activateAccount($data['login'], $data['email'], $user->attributes['token']);
+                $_SESSION['success'] = 'Check your inbox for an account activate email';
             }
-            $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
-            $user->attributes['token'] = md5(rand(999, 99999));
-            $user->attributes['activate'] = 0;
-            $user->save('users');
-            $user->activateAccount($data['login'], $data['email'], $user->attributes['token']);
-            $_SESSION['success'] = 'Check your inbox for an account activate email';
         }
         $title = 'Signup';
         $this->set(compact('title'));
@@ -37,8 +38,8 @@ class UserController extends \vendor\core\base\Controller
             if (!empty($user)) {
                 $model->updateActivate($user[0]['user_id']);
                 $model->updateToken($user[0]['user_id']);
-                $token = $model->getToken($user[0]['user_id']);
-                $_SESSION['user']['token'] = $token[0]['token'];
+//                $token = $model->getToken($user[0]['user_id']);
+//                $_SESSION['user']['token'] = $token[0]['token'];
             } else {
                 $_SESSION['error'] = 'Some problem occurred, please try again';
                 redirect('/user/signup');
@@ -137,7 +138,6 @@ class UserController extends \vendor\core\base\Controller
     {
         if (!empty($_SESSION['reset_user'])) {
             $data = array_merge($_POST, $_SESSION['reset_user']);
-            debug($data);
             unset($_SESSION['reset_user']);
             $user = new User();
             if (!$user->validate($_POST)) {
