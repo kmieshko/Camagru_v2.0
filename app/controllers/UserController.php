@@ -38,8 +38,6 @@ class UserController extends \vendor\core\base\Controller
             if (!empty($user)) {
                 $model->updateActivate($user[0]['user_id']);
                 $model->updateToken($user[0]['user_id']);
-//                $token = $model->getToken($user[0]['user_id']);
-//                $_SESSION['user']['token'] = $token[0]['token'];
             } else {
                 $_SESSION['error'] = 'Some problem occurred, please try again';
                 redirect('/user/signup');
