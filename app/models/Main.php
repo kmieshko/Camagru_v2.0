@@ -32,9 +32,9 @@ class Main extends Model
         if (isset($_SESSION['user']) && $_SESSION['user']['activate'] === '1') {
             $content .= $like;
             $content .= '<div class="post-comment" id="comment"></div>';
-            if ($_SESSION['user']['login'] === $login) {
-                $content .= '<input class="btn" type="submit" id="delete-image" value="Delete Image">';
-            }
+        }
+        if (isset($_SESSION['user']) && $_SESSION['user']['login'] === $login) {
+            $content .= '<input class="btn" type="submit" id="delete-image" value="Delete Image">';
         }
         $content .= '<div id="count-likes">Likes: ' . $count_likes . '</div>';
         $content .= '<div id="container-comment">' . $res . '</div>';

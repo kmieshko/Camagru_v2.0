@@ -1,6 +1,6 @@
-<center>
+<div class="profile">
     <?php if (isset($_SESSION['user']) && $_SESSION['user']['activate'] === '0') : ?>
-        <a href="/user/resend-activation-link">Activate your account</a>
+        <div><a href="/user/resend-activation-link">Activate your account</a></div>
     <?php endif; ?>
     <form method="post" action="/user/profile">
         <div>
@@ -25,8 +25,8 @@
             Change Password: <label id="label-password"></label>
             <img id="edit-password" width="16" src="/public/icons/edit.png">
         </div>
-        <button type="submit">Submit</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
-</center>
+</div>
 
 <script src="/public/js/profile.js"></script>

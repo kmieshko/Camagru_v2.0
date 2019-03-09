@@ -10,15 +10,10 @@ class MainController extends \vendor\core\base\Controller
     public function indexAction()
     {
         $model = new Main;
-        $model->query("CREATE TABLE IF NOT EXISTS users (`user_id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, `login` VARCHAR(" . MAX_LENGTH . ") NOT NULL, `password` VARCHAR(255) NOT NULL, `email` VARCHAR(100) NOT NULL, `notifications` ENUM('yes', 'no'), `token` VARCHAR(255) NOT NULL, `activate` ENUM('0', '1'))");
-        $model->query("CREATE TABLE IF NOT EXISTS images (`user_id` INT(11) NOT NULL, `login` VARCHAR(" . MAX_LENGTH . ") NOT NULL, `date` TIMESTAMP PRIMARY KEY,  `image` VARCHAR(255) NOT NULL)");
-        $model->query("CREATE TABLE IF NOT EXISTS comments (`comment_id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, `user_id` INT(11) NOT NULL, `login` VARCHAR(" . MAX_LENGTH . ") NOT NULL, `date` TIMESTAMP,  `image` VARCHAR(255) NOT NULL, `text` VARCHAR(1000) NOT NULL)");
-        $model->query("CREATE TABLE IF NOT EXISTS likes (`like_id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, `login` VARCHAR(" . MAX_LENGTH . ") NOT NULL, `image` VARCHAR(255) NOT NULL)");
-
         $total = $model->FindBySql("SELECT COUNT(*) FROM images");
         $total = $total[0]['COUNT(*)'];
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $perpage = 9;
+        $perpage = 1;
         $pagination = new Pagination($page, $perpage, $total);
         $start = $pagination->getStart();
         $images = $model->FindBySql("SELECT * FROM `images` ORDER BY `date` DESC LIMIT $start, $perpage");

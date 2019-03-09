@@ -6,6 +6,9 @@
     <link rel="stylesheet" type="text/css" href="/public/css/gallery.css">
     <link rel="stylesheet" type="text/css" href="/public/css/pagination.css">
     <link rel="stylesheet" type="text/css" href="/public/css/modal.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/menu.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/add-image.css">
     <script src="/public/js/functions.js"></script>
 </head>
 <body>
@@ -13,14 +16,14 @@
 <?php require_once 'header.php'; ?>
 
 <?php if (isset($_SESSION['error'])): ?>
-    <div>
-        <?= $_SESSION['error'];
+    <div class="alert alert-danger">
+        <?=$_SESSION['error'];
         unset($_SESSION['error']) ?>
     </div>
 <?php endif; ?>
 
 <?php if (isset($_SESSION['success'])): ?>
-    <div>
+    <div class="alert alert-success">
         <?= $_SESSION['success'];
         unset($_SESSION['success']) ?>
     </div>
