@@ -1,0 +1,29 @@
+CREATE TABLE IF NOT EXISTS users (
+  `user_id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `login` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `notifications` ENUM('yes', 'no'),
+  `token` VARCHAR(255) NOT NULL,
+  `activate` ENUM('0', '1')
+);
+
+CREATE TABLE IF NOT EXISTS images (
+  `user_id` INT(11) NOT NULL,
+  `login` VARCHAR(20) NOT NULL,
+  `date` TIMESTAMP PRIMARY KEY,
+  `image` VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS comments (
+  `comment_id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL, `login` VARCHAR(20) NOT NULL,
+  `date` TIMESTAMP,  `image` VARCHAR(255) NOT NULL,
+  `text` VARCHAR(1000) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS likes (
+  `like_id` INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `login` VARCHAR(20) NOT NULL,
+  `image` VARCHAR(255) NOT NULL
+);
