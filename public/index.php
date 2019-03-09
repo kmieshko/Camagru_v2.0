@@ -2,8 +2,6 @@
 ini_set("display_errors", "1");
 error_reporting(E_ALL);
 
-require_once '../index.php';
-
 use vendor\core\Router;
 
 $query = rtrim($_SERVER['QUERY_STRING'], '/');
@@ -19,6 +17,7 @@ define('MIN_LENGTH', 6);
 define('MAX_LENGTH', 20);
 
 require '../vendor/libs/functions.php';
+require '../index.php';
 
 spl_autoload_register(function ($class) {
     $file = ROOT . '/' . str_replace('\\', '/', $class) . '.php';
