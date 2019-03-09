@@ -93,7 +93,10 @@ var imagesNotDraggable;
 var imagesDraggable;
 var i = 0;
 
-function checkCanvasLimits(dropElem, dragObject) {
+function checkCanvasLimits(dragObject) {
+    var dropElem;
+    if (select == 'upload') dropElem = document.getElementById('canvas-upload');
+    if (select == 'camera') dropElem = document.getElementById('video');
     var dropElemCoords = getCoords(dropElem);
     var imgLeft = parseFloat(dragObject.avatar.style.left);
     var imgTop = parseFloat(dragObject.avatar.style.top);
@@ -111,22 +114,44 @@ document.onmouseup = function (event) {
     imagesNotDraggable = document.getElementById('frames').getElementsByClassName('not-draggable');
     if (dragObject.avatar) {
         var dropElem = findDroppable(event);
-        if (!dropElem || !checkCanvasLimits(dropElem, dragObject)) {
+        console.log(dropElem);
+        if (!dropElem || !checkCanvasLimits(dragObject)) {
             dragObject.avatar.rollback();
             for (i = 0; i < imagesNotDraggable.length;) {
                 imagesNotDraggable.item(i).setAttribute("class", "draggable");
             }
             frameButtons.setAttribute('class', 'invisible');
             if (tmpBlock.children.length > 0) {
-                if (select == 'upload') inputSaveUpl.disabled = false;
+                if (select == 'upload') {inputSaveUpl.disabled = false; inputSaveUpl.classList.add('active');}
                 if (select == 'camera') inputSnap.disabled = false;
             }
         } else {
+
+            if (select == 'camera') {
+                document.getElementById('select-camera').style.position = 'relative';
+                document.getElementById('select-camera').insertBefore(frameButtons, document.querySelector('.snap-save'));
+                frameButtons.style.position = 'absolute';
+                frameButtons.style.marginLeft = '-350px';
+                frameButtons.style.left =  getCoords(document.getElementById('canvas-camera')).left + width + 10 + 'px';
+                frameButtons.style.top =  getCoords(document.getElementById('canvas-camera')).top - 150 +  'px';
+            } else if (select == 'upload') {
+                document.getElementById('canvas-upload-block').style.position = 'relative';
+                document.getElementById('canvas-upload-block').appendChild(frameButtons);
+                frameButtons.style.position = 'absolute';
+                frameButtons.style.marginLeft = '-350px';
+                frameButtons.style.left =  getCoords(document.getElementById('canvas-upload')).left + width + 10 + 'px';
+                frameButtons.style.top =  getCoords(document.getElementById('canvas-upload')).top - 200 +  'px';
+            }
+
             for (i = 0; i < imagesDraggable.length;) {
                 imagesDraggable.item(i).setAttribute("class", "not-draggable");
             }
             if (imagesNotDraggable.length > 0) {
-                if (select == 'upload') inputSaveUpl.disabled = true;
+                if (select == 'upload') {
+                    inputSaveUpl.disabled = true;
+                    inputSaveUpl.classList.add('not-active');
+                    inputSaveUpl.classList.remove('active');
+                }
             }
             if (document.getElementsByClassName('draggable').length > 0) {
                 frameButtons.removeAttribute('class');
@@ -169,16 +194,44 @@ inputSaveFrame.onclick = function () {
     if (select == 'camera') {
         res_img = convertCanvasToImage(document.createElement('canvas'));
         inputSnap.disabled = false;
+        inputSnap.classList.remove('not-active');
+        inputSnap.classList.add('active');
     }
     else if (select == 'upload') {
         inputFitted.disabled = true;
+        inputFitted.classList.add('not-active');
+        inputFitted.classList.remove('active');
         inputScale.disabled = true;
+        inputScale.classList.add('not-active');
+        inputScale.classList.remove('active');
         inputSaveUpl.disabled = false;
+        inputSaveUpl.classList.add('active');
+        inputSaveUpl.classList.remove('not-active');
     }
     clone.element.removeAttribute('class');
-    document.getElementById('saved-frames').appendChild(clone.element);
+    var savedFrames = document.getElementById('saved-frames');
+    clone.element.style.zIndex = '0';
+    clone.element.className = 'droppable';
+    savedFrames.appendChild(clone.element);
     frameButtons.setAttribute('class', 'invisible');
     inputClear.removeAttribute('class');
+
+    if (select == 'camera') {
+        document.getElementById('select-camera').style.position = 'relative';
+        document.getElementById('select-camera').insertBefore(inputClear, document.querySelector('.snap-save'));
+        inputClear.style.position = 'absolute';
+        inputClear.style.marginLeft = '-350px';
+        inputClear.style.left =  getCoords(document.getElementById('canvas-camera')).left + width + 10 + 'px';
+        inputClear.style.top =  getCoords(document.getElementById('canvas-camera')).top + 30 + 'px';
+    } else if (select == 'upload') {
+        document.getElementById('canvas-upload-block').style.position = 'relative';
+        document.getElementById('canvas-upload-block').appendChild(frameButtons);
+        inputClear.style.position = 'absolute';
+        inputClear.style.marginLeft = '10px';
+        inputClear.style.left =  getCoords(document.getElementById('canvas-upload')).left + width + 10 + 'px';
+        inputClear.style.top =  getCoords(document.getElementById('canvas-upload')).top + 215 + 'px';
+    }
+
     imagesNotDraggable = document.getElementById('frames').getElementsByClassName('not-draggable');
     for (i = 0; i < imagesNotDraggable.length;) {
         imagesNotDraggable.item(i).setAttribute("class", "draggable");
@@ -188,5 +241,3 @@ inputSaveFrame.onclick = function () {
     img.src = (clone.element).getAttribute("src");
     img.setAttribute("class", 'draggable');
 };
-
-
