@@ -110,7 +110,7 @@ label span.error{
     /* Кнопка "Отправить" */
 
     background-color:#58B9EB;
-    border:1px solid #40A2D4;
+    border:1px solid #4CAF50;
     color:#FFFFFF;
     cursor:pointer;
     font-family:'Myriad Pro',Arial,Helvetica,sans-serif;
@@ -126,7 +126,7 @@ label span.error{
 
 #submit:hover{
     background-color:#80cdf5;
-    border-color:#52b1e2;
+    border-color:#4CAF50;
 }
 /* Ниже приведенные стили нужны только для демонстрационной страницы: */
 
@@ -154,16 +154,16 @@ h1,h2{
     text-shadow:0 1px 1px #FFFFFF;
 }
 
-a, a:visited {
-    color:#0196e3;
+a.nav-link, a.nav-link:visited {
+    color:#328135;
     text-decoration:none;
     outline:none;
 }
 
-a:hover{
+a.nav-link:hover{
     text-decoration:underline;
 }
 
-a img{
+a.nav-link img{
     border:none;
 }*/*/*/
