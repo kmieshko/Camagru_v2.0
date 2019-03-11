@@ -109,3 +109,20 @@ div.radio div, div.radio input {
     background: none;
 }
 
+.site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.site-content {
+    flex: 1;
+}
+
+footer {
+    text-align: center;
+    color: #fff;
+    padding: 30px;
+    background-color: #388e3c87;
+}
+

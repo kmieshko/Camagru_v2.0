@@ -267,11 +267,11 @@ camera.onclick = function () {
 
                     var div_added = document.createElement('div');
                     div_added.className = "added_img";
-                    div_added.innerHTML = "Image succesfully added to the gallery <br />";
+                    div_added.innerHTML = "<p>Image succesfully added to the gallery </p>";
                     var result = document.createElement('img');
                     result.src = res_img.src;
                     div_added.appendChild(result);
-                    document.body.insertBefore(div_added, document.getElementsByTagName('center').item(0));
+                    document.body.insertBefore(div_added, document.getElementsByTagName('footer').item(0));
 
                     var choose = document.createElement('div');
                     choose.id = 'choose';
@@ -283,7 +283,7 @@ camera.onclick = function () {
                     inputAddNewImage.value = "Add New Image";
                     inputGoToGallery.type = "button";
                     inputGoToGallery.value = "Go To Gallery";
-                    document.body.insertBefore(choose, document.getElementsByTagName('center').item(0));
+                    div_added.appendChild(choose);
 
                     inputGoToGallery.onclick = function() {
                         choose.remove();

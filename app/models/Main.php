@@ -27,7 +27,7 @@ class Main extends Model
             $res .= '</div>';
         }
         $content = '<div class="modal-container">';
-        $content .= '<header><h2>User picture '. $login. '</h2></header>';
+        $content .= '<header><h2>User picture <b>'. $login. '</b></h2></header>';
         $content .= '<section><img src="'. $img .'"></section>';
         if (isset($_SESSION['user']) && $_SESSION['user']['activate'] === '1') {
             $content .= $like;
@@ -39,7 +39,7 @@ class Main extends Model
         $content .= '<div id="count-likes">Likes: ' . $count_likes . '</div>';
         $content .= '<div id="container-comment">' . $res . '</div>';
         $content .= $this->addCommentBlock();
-        $content .= '<footer class="footer"><a href="#" class="btn"><input type="button" value="Close"></a></footer>';
+        $content .= '<footer class="footer"><a href="#" class="btn"><input id="close-modal" type="button" value="Close"></a></footer>';
         $content .= '</div>';
         return $content;
     }
@@ -68,8 +68,8 @@ class Main extends Model
         $result .= '<p>Add comment</p>';
         $result .= '<div id="addCommentForm">';
         $result .= '<div>';
-        $result .= '<textarea name="body" id="body" cols="20" rows="4"></textarea>';
-        $result .= '<input type="submit" id="btnSubmit" value="Send" />';
+        $result .= '<textarea name="body" id="body" rows="4"></textarea>';
+        $result .= '<div class="send-button" id="btnSubmit"> </div>';
         $result .= '</div>';
         $result .= '</div>';
         $result .= '</div>';
@@ -84,7 +84,7 @@ class Main extends Model
         }
         $return = '<div class="name">' . $login . '</div>';
         $return .= '<div class="date">' . $date . '</div>';
-        $return .= '<p>' . $text . '<br />' . $delete_comment . '</p>';
+        $return .= '<p>' . $text . '</p>' . '<div>' . $delete_comment . '</div>';
         return $return;
     }
 

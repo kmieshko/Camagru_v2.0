@@ -19,7 +19,7 @@ if (divLike) {
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var countLikes = document.getElementById('count-likes');
-                var count = parseInt(countLikes.innerText.replace('Likes: ', ''));
+                var count = parseInt(countLikes.innerText.toLowerCase().replace('likes: ', ''));
                 count += likeFlag;
                 countLikes.innerText = 'Likes: ' + count;
             }
@@ -30,6 +30,5 @@ if (divLike) {
     divComment.onclick = function () {
         var addCommentContainer = document.getElementById('addCommentContainer');
         addCommentContainer.classList.remove('invisible');
-        scrollToElement(addCommentContainer);
     };
 }

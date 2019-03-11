@@ -38,9 +38,14 @@ class UserController extends \vendor\core\base\Controller
             if (!empty($user)) {
                 $model->updateActivate($user[0]['user_id']);
                 $model->updateToken($user[0]['user_id']);
+                if (!empty($_SESSION['user'])) $_SESSION['user']['activate'] = '1';
             } else {
                 $_SESSION['error'] = 'Some problem occurred, please try again';
-                redirect('/user/signup');
+                if (!empty($_SESSION['user'])) {
+                    redirect('/user/profile');
+                } else {
+                    redirect('/user/signup');
+                }
             }
         }
         $title = 'Activate Account';
@@ -52,7 +57,7 @@ class UserController extends \vendor\core\base\Controller
         if (isset($_SESSION['user'])) {
             $model = new User();
             $token = $model->getToken($_SESSION['user']['user_id']);
-            $_SESSION['user']['token'] = $token[0]['token'];
+            $_SESSION['user']['token'] = $token;
             $model->activateAccount($_SESSION['user']['login'], $_SESSION['user']['email'], $_SESSION['user']['token']);
             $_SESSION['success'] = 'Check your inbox for an account activate email';
             redirect('/user/activate-account');
@@ -156,24 +161,29 @@ class UserController extends \vendor\core\base\Controller
         if (!empty($_SESSION['user'])) {
             if (!empty($_POST)) {
                 $user = new User();
-                if (!$user->validate($_POST)) {
+                $user->load($_POST);
+                if (!$user->validate($_POST) || !$user->checkUnique()) {
                     $user->getErrors();
                     redirect();
                 }
                 if ($_POST['notifications'] !== $_SESSION['user']['notifications']) {
                     $user->updateNotifications($_POST['notifications'], $_SESSION['user']['user_id']);
                     $_SESSION['user']['notifications'] = $_POST['notifications'];
+                    $_SESSION['success'] = 'Notification setting updated successfully';
                 }
                 if (isset($_POST['login']) && $_POST['login'] !== $_SESSION['user']['login']) {
                     $user->updateLogin($_POST['login'], $_SESSION['user']['user_id']);
                     $_SESSION['user']['login'] = $_POST['login'];
+                    $_SESSION['success'] = 'Login updated successfully';
                 }
                 if (isset($_POST['email']) && $_POST['email'] !== $_SESSION['user']['email']) {
                     $user->updateEmail($_POST['email'], $_SESSION['user']['user_id']);
                     $_SESSION['user']['email'] = $_POST['email'];
+                    $_SESSION['success'] = 'Email updated successfully';
                 }
                 if (isset($_POST['new-password'])) {
                     $user->updatePassword($_POST['new-password'], $_SESSION['user']['user_id']);
+                    $_SESSION['success'] = 'Password updated successfully';
                 }
             }
             $login = $_SESSION['user']['login'];

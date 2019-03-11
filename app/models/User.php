@@ -157,10 +157,15 @@ class User extends Model
         $header .= "Date: " . date("r (T)") . " \r\n";
         $header .= iconv_mime_encode("Subject", $from_name . ' <' . $from_mail . '> ', $subject_preferences);
         $resetPassLink = 'http://127.0.0.1:8100/user/activate-account/?token=' . $token;
-        $subject = "Thank you for registering Camagru";
-        $mailContent = 'Dear ' . $login . ',';
-        $mailContent .= '<br/>Thank you for registering with Camagru! Your account has been successfully created. Welcome to the Camagru family!';
-        $mailContent .= '<br/>To ensure security, activate your account now. Please click the following link to activate your account: <a href="' . $resetPassLink . '">' . $resetPassLink . '</a>';
+        if (!empty($_SESSION['user'])) {
+            $subject = "Activate your Camagru account";
+            $mailContent = 'Dear ' . $login . ',';
+        } else {
+            $subject = "Thank you for registering Camagru";
+            $mailContent = 'Dear ' . $login . ',';
+            $mailContent .= '<br/>Thank you for registering with Camagru! Your account has been successfully created. Welcome to the Camagru family!';
+        }
+        $mailContent .= '<br/>To access all features, activate your account now. Please click the following link to activate your account: <a href="' . $resetPassLink . '">' . $resetPassLink . '</a>';
         $mailContent .= '<br/> If the link doesn\'t work, copy it into the address bar of your browser.';
         $mailContent .= '<br/><br/>Regards,';
         $mailContent .= '<br/>Camagru';

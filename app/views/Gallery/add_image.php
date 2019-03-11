@@ -22,6 +22,12 @@
             <img src="/public/frames/2.png" class="draggable">
             <img src="/public/frames/3.png" class="draggable">
             <img src="/public/frames/4.png" class="draggable">
+            <img src="/public/frames/5.png" class="draggable">
+            <img src="/public/frames/6.png" class="draggable">
+            <img src="/public/frames/7.png" class="draggable">
+            <img src="/public/frames/8.png" class="draggable">
+            <img src="/public/frames/9.png" class="draggable">
+            <img src="/public/frames/10.png" class="draggable">
         </div>
         <div id='canvas-upload-block'>
             <canvas id='canvas-upload' width="560" height="420" class="invisible"></canvas>

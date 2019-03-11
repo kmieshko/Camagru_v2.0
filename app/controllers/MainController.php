@@ -13,7 +13,7 @@ class MainController extends \vendor\core\base\Controller
         $total = $model->FindBySql("SELECT COUNT(*) FROM images");
         $total = $total[0]['COUNT(*)'];
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $perpage = 1;
+        $perpage = 6;
         $pagination = new Pagination($page, $perpage, $total);
         $start = $pagination->getStart();
         $images = $model->FindBySql("SELECT * FROM `images` ORDER BY `date` DESC LIMIT $start, $perpage");
@@ -34,7 +34,7 @@ class MainController extends \vendor\core\base\Controller
     public function commentImageAction()
     {
         if (isset($_POST['body'])) {
-            $text = $_POST['body'];
+            $text = h($_POST['body']);
             $mObj = new Main();
             $mObj->saveCommentToDb($text, $_SESSION['user'], $_POST['img']);
             $mObj->checkNotifications($_POST['img']);

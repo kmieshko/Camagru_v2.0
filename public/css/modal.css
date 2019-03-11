@@ -2,7 +2,7 @@
     background: #fff;
     position: absolute;
     top: -1000%;
-    width: 670px;
+    width: 590px;
     border-radius: 5px;
     box-shadow: 0 3px 7px rgba(0, 0, 0, .25);
     -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, .25);
@@ -27,8 +27,8 @@
 .modal:target .modal-container {
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+    top: 1%;
+    transform: translate(-50%, 0);
 }
 
 .modal header, .modal footer {
@@ -38,21 +38,22 @@
 }
 
 .modal footer {
+    height: 20px;
     border: none;
     border-top: 1px solid #e7e7e7;
     border-radius: 0 0 5px 5px;
+    padding: 15px 15px 25px;
 }
 
-.modal section, .modal header, .modal footer {
+.modal section, .modal header {
     padding: 15px;
 }
 
 .modal h2 {
     margin: 0;
-}
-
-.modal .btn {
-    float: right;
+    color: #33691e;
+    text-align: center;
+    font-weight: normal;
 }
 
 .post-like {
@@ -80,4 +81,10 @@
 
 .liked {
     background-image: url(/public/icons/post-liked.png);
+}
+
+#count-likes {
+    padding: 15px;
+    color: #33691e;
+    text-transform: uppercase;
 }

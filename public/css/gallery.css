@@ -26,10 +26,17 @@
 .clear{clear: both;}
 
 .container {
-    width: 930px;
+    max-width: 930px;
     height: 100%;
     background: #f0f0f0;
     padding: 10px 0px 0px 10px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     overflow: hidden;
+}
+
+
+.gallery > p {
+    text-transform: uppercase;
+    font-size: 30px;
+    color: #328135;
 }

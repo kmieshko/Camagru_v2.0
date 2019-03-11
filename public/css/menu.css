@@ -3,6 +3,7 @@ ul.menu {
     padding: 0;
     background: #388e3c87;
     height: 50px;
+    margin: 0 0 20px;
 }
 
 ul.menu a {

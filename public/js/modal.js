@@ -41,12 +41,12 @@ function addComment() {
                 var comment = extractJSON(xhr.responseText);
                 var divComment = document.createElement('div');
                 divComment.className = 'comment';
+                console.log(xhr.responseText);
                 divComment.innerHTML = comment.html;
                 document.getElementById('container-comment').appendChild(divComment);
                 document.getElementById('body').value = '';
                 divComment.querySelector('.delete-comment').addEventListener('click', function () {
                     var date = this.parentElement.parentElement.querySelector('.date').innerText;
-                    var text = this.parentElement.innerText;
                     var comment = this.parentElement.parentElement;
                     var xhr = new XMLHttpRequest();
                     var body = 'date=' + date;

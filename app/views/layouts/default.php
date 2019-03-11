@@ -11,25 +11,27 @@
     <link rel="stylesheet" type="text/css" href="/public/css/add-image.css">
     <script src="/public/js/functions.js"></script>
 </head>
-<body>
+<body class="site">
 
-<?php require_once 'header.php'; ?>
+<div class="site-content">
+    <?php require_once 'header.php'; ?>
 
-<?php if (isset($_SESSION['error'])): ?>
-    <div class="alert alert-danger">
-        <?=$_SESSION['error'];
-        unset($_SESSION['error']) ?>
-    </div>
-<?php endif; ?>
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger">
+            <?=$_SESSION['error'];
+            unset($_SESSION['error']) ?>
+        </div>
+    <?php endif; ?>
 
-<?php if (isset($_SESSION['success'])): ?>
-    <div class="alert alert-success">
-        <?= $_SESSION['success'];
-        unset($_SESSION['success']) ?>
-    </div>
-<?php endif; ?>
+    <?php if (isset($_SESSION['success'])): ?>
+        <div class="alert alert-success">
+            <?= $_SESSION['success'];
+            unset($_SESSION['success']) ?>
+        </div>
+    <?php endif; ?>
 
 <?=$content ?>
+</div>
 <!--        --><?//= debug(vendor\core\Db::$countSql)?>
 <!--        --><?//= debug(vendor\core\Db::$queries)?>
 
