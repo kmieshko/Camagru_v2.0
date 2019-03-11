@@ -128,7 +128,7 @@ upload.onclick = function () {
                             var result = document.createElement('img');
                             result.src = res_img.src;
                             div_added.appendChild(result);
-                            document.body.insertBefore(div_added, document.getElementsByTagName('footer').item(0));
+                            document.querySelector('.site-content').appendChild(div_added);
 
                             var choose = document.createElement('div');
                             choose.id = 'choose';
@@ -271,7 +271,7 @@ camera.onclick = function () {
                     var result = document.createElement('img');
                     result.src = res_img.src;
                     div_added.appendChild(result);
-                    document.body.insertBefore(div_added, document.getElementsByTagName('footer').item(0));
+                    document.querySelector('.site-content').appendChild(div_added);
 
                     var choose = document.createElement('div');
                     choose.id = 'choose';
