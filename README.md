@@ -64,3 +64,11 @@ This part accessible only to users that are authentified/connected and gently re
 
 # Some examples
 
+<p align="center">
+<img src="https://github.com/kmieshko/Camagru_v2.0/blob/master/examples/registr.png" width=600>
+<img src="https://github.com/kmieshko/Camagru_v2.0/blob/master/examples/login.png" width=600>
+<img src="https://github.com/kmieshko/Camagru_v2.0/blob/master/examples/profile.png" width=600>
+<img src="https://github.com/kmieshko/Camagru_v2.0/blob/master/examples/filters.png" width=600>
+<img src="https://github.com/kmieshko/Camagru_v2.0/blob/master/examples/save.png" width=600>
+<img src="https://github.com/kmieshko/Camagru_v2.0/blob/master/examples/error.png" width=600>
+</p>
