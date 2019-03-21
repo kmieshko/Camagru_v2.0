@@ -20,6 +20,7 @@ class GalleryController extends \vendor\core\base\Controller
             $extension = $gObj->getExtension($_POST["image"]);
             $img = $gObj->imageDecode($_POST["image"], $extension);
             $name = uniqid() . '.' . $extension;
+            if (!file_exists(ROOT . '/public/images/')) mkdir(ROOT . '/public/images/');
             $path = ROOT . '/public/images/' . $name;
             if ($img === false) {
                 $_SESSION['error'] = 'base64_decode failed';
