@@ -7,7 +7,7 @@ This web project is a small web application allowing to make basic photo and vid
   * I must use ony PHP language to create your server-side application, with just the standard library.
   *  Client-side, my pages must use HTML, CSS and JavaScript.
   *  Every framework, micro-framework or library that I don’t create are totally **forbidden**, except for CSS frameworks that doesn’t need forbidden JavaScript.
-  *  I must use the PDO abstraction driver to communicate with your database, that must be queryable with SQL. The error mode of this driver must be set to PDO::ERRMODE_EXCEPTION
+  *  I must use the PDO abstraction driver to communicate with your database, that must be queryable with SQL. The error mode of this driver must be set to *PDO::ERRMODE_EXCEPTION*
   *  Application must be free of any security leak.
 
 # Feautues
