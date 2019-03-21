@@ -5,7 +5,7 @@
         <li><a class="navig-link" href="/user/logout">Logout</a></li>
         <li><a class="navig-link" href="/user/profile">Profile</a></li>
     <?php else : ?>
-        <li><a class="navig-link" href="/user/signup">Signup</a></li>
-        <li><a class="navig-link" href="/user/login">Login</a></li>
+        <li><a class="navig-link" href="/user/signup">Sign Up</a></li>
+        <li><a class="navig-link" href="/user/login">Log In</a></li>
     <?php endif ?>
 </ul>

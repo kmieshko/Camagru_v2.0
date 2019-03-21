@@ -143,7 +143,7 @@ class Main extends Model
         $header .= "Content-Transfer-Encoding: 8bit \r\n";
         $header .= "Date: " . date("r (T)") . " \r\n";
         $header .= iconv_mime_encode("Subject", $from_name . ' <' . $from_mail . '> ', $subject_preferences);
-        $resetPassLink = 'http://127.0.0.1:8100/';
+        $resetPassLink = 'http://localhost:8100/';
         $subject = 'Your post was commented';
         $mailContent = 'Dear ' . $login . ',';
         if ($login !== $_SESSION['user']['login']) {

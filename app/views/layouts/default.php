@@ -30,6 +30,8 @@
         </div>
     <?php endif; ?>
 
+<!--    --><?php //debug($_SESSION); ?>
+
 <?=$content ?>
 </div>
 <!--        --><?//= debug(vendor\core\Db::$countSql)?>

@@ -156,7 +156,7 @@ class User extends Model
         $header .= "Content-Transfer-Encoding: 8bit \r\n";
         $header .= "Date: " . date("r (T)") . " \r\n";
         $header .= iconv_mime_encode("Subject", $from_name . ' <' . $from_mail . '> ', $subject_preferences);
-        $resetPassLink = 'http://127.0.0.1:8100/user/activate-account/?token=' . $token;
+        $resetPassLink = 'http://localhost:8100/user/activate-account/?token=' . $token;
         if (!empty($_SESSION['user'])) {
             $subject = "Activate your Camagru account";
             $mailContent = 'Dear ' . $login . ',';
@@ -222,7 +222,7 @@ class User extends Model
         $header .= "Content-Transfer-Encoding: 8bit \r\n";
         $header .= "Date: " . date("r (T)") . " \r\n";
         $header .= iconv_mime_encode("Subject", $from_name . ' <' . $from_mail . '> ', $subject_preferences);
-        $resetPassLink = 'http://127.0.0.1:8100/user/new-password/?token=' . $token;
+        $resetPassLink = 'http://localhost:8100/user/new-password/?token=' . $token;
         $subject = "Password Update Request";
         $mailContent = 'Dear ' . $login . ',';
         $mailContent .= '<br/>Recently a request was submitted to reset a password for your account. If this was a mistake, just ignore this email and nothing will happen.';
