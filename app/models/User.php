@@ -252,6 +252,8 @@ class User extends Model
     public function updateLogin($login, $user_id)
     {
         $this->query("UPDATE `users` SET `login` = '$login' WHERE `user_id` = '$user_id'");
+        $this->query("UPDATE `likes` SET `login` = '$login' WHERE `user_id` = '$user_id'");
+        $this->query("UPDATE `images` SET `login` = '$login' WHERE `user_id` = '$user_id'");
     }
 
     public function updateEmail($email, $user_id)

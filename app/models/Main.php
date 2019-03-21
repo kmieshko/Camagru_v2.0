@@ -99,12 +99,12 @@ class Main extends Model
         return $like;
     }
 
-    public function likeImage($img, $login)
+    public function likeImage($img, $login, $user_id)
     {
-        $this->query("INSERT INTO `likes` (`login`, `image`) VALUES ('$login', '$img')");
+        $this->query("INSERT INTO `likes` (`login`, `image`, `user_id`) VALUES ('$login', '$img', '$user_id')");
     }
 
-    public function unlikeImage($img, $login)
+    public function unlikeImage($img, $login, $user_id = '')
     {
         $this->FindBySql("DELETE FROM likes WHERE `image` = '$img' AND `login` = '$login'");
     }

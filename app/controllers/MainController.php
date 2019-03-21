@@ -51,9 +51,9 @@ class MainController extends \vendor\core\base\Controller
         if (isset($_POST['img']) && isset($_POST['like'])) {
             $mObj = new Main();
             if ($_POST['like'] == -1) {
-                $mObj->unlikeImage($_POST['img'], $_SESSION['user']['login']);
+                $mObj->unlikeImage($_POST['img'], $_SESSION['user']['login'], $_SESSION['user']['user_id']);
             } elseif ($_POST['like'] == 1) {
-                $mObj->likeImage($_POST['img'], $_SESSION['user']['login']);
+                $mObj->likeImage($_POST['img'], $_SESSION['user']['login'], $_SESSION['user']['user_id']);
             }
         }
     }
