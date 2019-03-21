@@ -71,4 +71,6 @@ This part accessible only to users that are authentified/connected and gently re
 <img src="https://github.com/kmieshko/Camagru_v2.0/blob/master/examples/filters.png" width=600>
 <img src="https://github.com/kmieshko/Camagru_v2.0/blob/master/examples/save.png" width=600>
 <img src="https://github.com/kmieshko/Camagru_v2.0/blob/master/examples/error.png" width=600>
+<img src="https://github.com/kmieshko/Camagru_v2.0/blob/master/examples/modal.png" width=600>
+
 </p>
